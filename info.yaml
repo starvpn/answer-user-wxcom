@@ -1,0 +1,9 @@
+name: connector-wechat
+slug_name: wechat_connector
+version: 1.0.0
+author: Answer Team
+description: 
+  en_US: WeChat OAuth connector for Answer
+  zh_CN: 微信 OAuth 登录插件
+link: https://github.com/starvpn/answer-user-wxcom
+

@@ -1,0 +1,19 @@
+# WeChat Connector Configuration Example
+# Copy this file to your Answer configuration and update with your values
+
+wechat_connector:
+  # AppID from WeChat Open Platform
+  # 从微信开放平台获取的 AppID
+  app_id: "wx1234567890abcdef"
+  
+  # AppSecret from WeChat Open Platform
+  # 从微信开放平台获取的 AppSecret
+  # ⚠️ Keep this secret! Do not commit to version control
+  # ⚠️ 请保密！不要提交到版本控制系统
+  app_secret: "your_app_secret_here"
+  
+  # Custom display name for the login button
+  # 登录按钮的自定义显示名称
+  # Optional, defaults to "WeChat" or "微信"
+  display_name: "Sign in with WeChat"
+
