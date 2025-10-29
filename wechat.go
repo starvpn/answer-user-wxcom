@@ -1,6 +1,8 @@
 package wechat
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -55,12 +57,21 @@ func init() {
 	})
 }
 
+// generateState generates a random state string for CSRF protection
+func generateState() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		return ""
+	}
+	return hex.EncodeToString(b)
+}
+
 // Info implements plugin.Base
 func (c *Connector) Info() plugin.Info {
 	return plugin.Info{
-		Name:        plugin.MakeTranslator(i18n.InfoName),
+		Name:        plugin.MakeTranslator(InfoName),
 		SlugName:    "wechat_connector",
-		Description: plugin.MakeTranslator(i18n.InfoDescription),
+		Description: plugin.MakeTranslator(InfoDescription),
 		Author:      "Answer Team",
 		Version:     "1.0.0",
 		Link:        "https://github.com/starvpn/answer-user-wxcom",
@@ -83,7 +94,7 @@ func (c *Connector) ConnectorLogoSVG() string {
 
 // ConnectorName implements plugin.Connector
 func (c *Connector) ConnectorName() plugin.Translator {
-	return plugin.MakeTranslator(i18n.ConnectorName)
+	return plugin.MakeTranslator(ConnectorName)
 }
 
 // ConnectorSlugName implements plugin.Connector
@@ -94,7 +105,7 @@ func (c *Connector) ConnectorSlugName() string {
 // ConnectorSender implements plugin.Connector
 // It redirects user to WeChat OAuth authorization page
 func (c *Connector) ConnectorSender(ctx *plugin.GinContext, receiverURL string) (redirectURL string) {
-	state := plugin.GenerateState()
+	state := generateState()
 	ctx.SetCookie("wechat_state", state, 600, "/", "", false, true)
 
 	// WeChat OAuth2 authorization URL
@@ -232,8 +243,8 @@ func (c *Connector) ConfigFields() []plugin.ConfigField {
 		{
 			Name:        "app_id",
 			Type:        plugin.ConfigTypeInput,
-			Title:       plugin.MakeTranslator(i18n.ConfigAppIDTitle),
-			Description: plugin.MakeTranslator(i18n.ConfigAppIDDescription),
+			Title:       plugin.MakeTranslator(ConfigAppIDTitle),
+			Description: plugin.MakeTranslator(ConfigAppIDDescription),
 			Required:    true,
 			UIOptions: plugin.ConfigFieldUIOptions{
 				InputType: plugin.InputTypeText,
@@ -243,8 +254,8 @@ func (c *Connector) ConfigFields() []plugin.ConfigField {
 		{
 			Name:        "app_secret",
 			Type:        plugin.ConfigTypeInput,
-			Title:       plugin.MakeTranslator(i18n.ConfigAppSecretTitle),
-			Description: plugin.MakeTranslator(i18n.ConfigAppSecretDescription),
+			Title:       plugin.MakeTranslator(ConfigAppSecretTitle),
+			Description: plugin.MakeTranslator(ConfigAppSecretDescription),
 			Required:    true,
 			UIOptions: plugin.ConfigFieldUIOptions{
 				InputType: plugin.InputTypePassword,
@@ -254,8 +265,8 @@ func (c *Connector) ConfigFields() []plugin.ConfigField {
 		{
 			Name:        "display_name",
 			Type:        plugin.ConfigTypeInput,
-			Title:       plugin.MakeTranslator(i18n.ConfigDisplayNameTitle),
-			Description: plugin.MakeTranslator(i18n.ConfigDisplayNameDescription),
+			Title:       plugin.MakeTranslator(ConfigDisplayNameTitle),
+			Description: plugin.MakeTranslator(ConfigDisplayNameDescription),
 			Required:    false,
 			UIOptions: plugin.ConfigFieldUIOptions{
 				InputType: plugin.InputTypeText,
