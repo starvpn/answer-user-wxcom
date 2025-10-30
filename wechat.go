@@ -80,7 +80,7 @@ func (c *Connector) Info() plugin.Info {
 		SlugName:    "wechat_connector",
 		Description: plugin.MakeTranslator(InfoDescription),
 		Author:      "Answer Team",
-		Version:     "1.0.0",
+		Version:     "1.0.3",
 		Link:        "https://github.com/starvpn/answer-user-wxcom",
 	}
 }
@@ -296,12 +296,28 @@ func (c *Connector) ConfigReceiver(config []byte) error {
 
 // TranslateConfig implements plugin.Translator
 func (c *Connector) TranslateConfig(language string) string {
+	fmt.Printf("[WeChat Connector] TranslateConfig called with language: %s\n", language)
+	fmt.Printf("[WeChat Connector] zh_CN file size: %d bytes\n", len(zhCNTranslationFile))
+	fmt.Printf("[WeChat Connector] en_US file size: %d bytes\n", len(enUSTranslationFile))
+
+	var result string
 	switch language {
 	case "zh_CN", "zh-CN", "zh":
-		return string(zhCNTranslationFile)
+		result = string(zhCNTranslationFile)
+		fmt.Printf("[WeChat Connector] Returning zh_CN translation\n")
 	default:
-		return string(enUSTranslationFile)
+		result = string(enUSTranslationFile)
+		fmt.Printf("[WeChat Connector] Returning en_US translation (default)\n")
 	}
+
+	// Print first 200 chars of the translation content
+	if len(result) > 200 {
+		fmt.Printf("[WeChat Connector] Translation content (first 200 chars): %s...\n", result[:200])
+	} else {
+		fmt.Printf("[WeChat Connector] Translation content: %s\n", result)
+	}
+
+	return result
 }
 
 // TranslateConfigList implements plugin.Translator
