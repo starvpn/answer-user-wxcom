@@ -2,6 +2,7 @@ package wechat
 
 import (
 	"crypto/rand"
+	_ "embed"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
@@ -11,6 +12,12 @@ import (
 
 	"github.com/apache/answer/plugin"
 )
+
+//go:embed i18n/en_US.yaml
+var enUSTranslationFile []byte
+
+//go:embed i18n/zh_CN.yaml
+var zhCNTranslationFile []byte
 
 // Connector WeChat OAuth2 connector plugin
 type Connector struct {
@@ -285,4 +292,19 @@ func (c *Connector) ConfigReceiver(config []byte) error {
 
 	c.Config = conf
 	return nil
+}
+
+// TranslateConfig implements plugin.Translator
+func (c *Connector) TranslateConfig(language string) string {
+	switch language {
+	case "zh_CN", "zh-CN", "zh":
+		return string(zhCNTranslationFile)
+	default:
+		return string(enUSTranslationFile)
+	}
+}
+
+// TranslateConfigList implements plugin.Translator
+func (c *Connector) TranslateConfigList() []string {
+	return []string{"zh_CN"}
 }

@@ -1,25 +1,33 @@
-backend:
-  plugin:
-    wechat_connector:
-      name:
-        other: 微信
-      description:
-        other: 允许用户使用微信账号登录
-      config:
-        app_id:
-          title: AppID
-          description: 微信开放平台应用 ID
-          placeholder: 请输入您的 AppID
-        app_secret:
-          title: AppSecret
-          description: 微信开放平台应用密钥
-          placeholder: 请输入您的 AppSecret
-        display_name:
-          title: 显示名称
-          description: 微信登录按钮的自定义显示名称
-          placeholder: 微信登录
-
-ui:
-  login:
-    title: 使用微信登录
+plugin:
+  wechat_connector:
+    name:
+      other: 微信
+    description:
+      other: 允许用户使用微信账号登录
+    config:
+      app_id:
+        title:
+          other: AppID
+        description:
+          other: 微信开放平台应用 ID
+        placeholder:
+          other: 请输入您的 AppID
+      app_secret:
+        title:
+          other: AppSecret
+        description:
+          other: 微信开放平台应用密钥
+        placeholder:
+          other: 请输入您的 AppSecret
+      display_name:
+        title:
+          other: 显示名称
+        description:
+          other: 微信登录按钮的自定义显示名称
+        placeholder:
+          other: 微信登录
+    ui:
+      login:
+        title:
+          other: 使用微信登录
 

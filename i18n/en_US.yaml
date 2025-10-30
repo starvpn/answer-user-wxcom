@@ -1,0 +1,33 @@
+plugin:
+  wechat_connector:
+    name:
+      other: WeChat
+    description:
+      other: Enable users to log in with their WeChat account
+    config:
+      app_id:
+        title:
+          other: AppID
+        description:
+          other: WeChat Open Platform Application ID
+        placeholder:
+          other: Enter your AppID
+      app_secret:
+        title:
+          other: AppSecret
+        description:
+          other: WeChat Open Platform Application Secret
+        placeholder:
+          other: Enter your AppSecret
+      display_name:
+        title:
+          other: Display Name
+        description:
+          other: Custom display name for WeChat login button
+        placeholder:
+          other: WeChat Login
+    ui:
+      login:
+        title:
+          other: Sign in with WeChat
+
