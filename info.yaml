@@ -1,6 +1,6 @@
 name: connector-wechat
 slug_name: wechat_connector
-version: 1.0.3
+version: 1.0.4
 author: Answer Team
 description: 
   en_US: WeChat OAuth connector for Answer
